@@ -104,12 +104,25 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="year" class="block text-sm font-medium text-gray-300 mb-1">Ano</label>
-                        <input type="number" id="year" min="1900" max="2030" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                        <label for="year" class="block text-sm font-medium text-gray-300 mb-1"> Ano assistindo</label>
+                        <input type="number" id="year" required min="1900" max="2300" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
                     </div>
                     <div class="form-group">
                         <label for="rating" class="block text-sm font-medium text-gray-300 mb-1">Nota (1-10)</label>
-                        <input type="number" id="rating" min="1" max="10" step="0.1" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                        <input type="number" id="rating" required min="1" max="10" step="0.1" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                    </div>
+                    <div class="form-group">
+                        <label for="wouldWatchAgain" class="block text-sm font-medium text-gray-300 mb-1">Assistiria Novamente?</label>
+                        <select id="wouldWatchAgain" required class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                            <option value="">Selecione...</option>
+                            <option value="true">Sim</option>
+                            <option value="false">Não Mais</option>
+                            <option value="maybe">Talvez</option>
+                        </select>
+                    </div>
+                    <div class="form-group flex items-center mt-6">
+                        <input type="checkbox" id="sagaComplete" class="h-5 w-5 text-purple-600 bg-gray-800 border-gray-600 rounded focus:ring-purple-500">
+                        <label for="sagaComplete" class="ml-2 block text-sm font-medium text-gray-300">Saga Completa?</label>
                     </div>
                 </div>
 
@@ -208,12 +221,25 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="editYear" class="block text-sm font-medium text-gray-300 mb-1">Ano</label>
-                        <input type="number" id="editYear" min="1900" max="2030" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                        <label for="editYear" class="block text-sm font-medium text-gray-300 mb-1">Ano assistindo</label>
+                        <input type="number" id="editYear" required min="1900" max="2300" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
                     </div>
                     <div class="form-group">
                         <label for="editRating" class="block text-sm font-medium text-gray-300 mb-1">Nota (1-10)</label>
-                        <input type="number" id="editRating" min="1" max="10" step="0.1" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                        <input type="number" id="editRating" required min="1" max="10" step="0.1" class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                    </div>
+                    <div class="form-group">
+                        <label for="editWouldWatchAgain" class="block text-sm font-medium text-gray-300 mb-1">Assistiria Novamente?</label>
+                        <select id="editWouldWatchAgain" required class="w-full bg-gray-800 border-gray-600 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition">
+                            <option value="">Selecione...</option>
+                            <option value="true">Sim</option>
+                            <option value="false">Não Mais</option>
+                            <option value="maybe">Talvez</option>
+                        </select>
+                    </div>
+                    <div class="form-group flex items-center mt-6">
+                        <input type="checkbox" id="editSagaComplete" class="h-5 w-5 text-purple-600 bg-gray-800 border-gray-600 rounded focus:ring-purple-500">
+                        <label for="editSagaComplete" class="ml-2 block text-sm font-medium text-gray-300">Saga Completa?</label>
                     </div>
                 </div>
 
@@ -226,7 +252,7 @@
                         <div class="form-group"><label for="editStatus" class="block text-sm font-medium text-gray-300 mb-1">Status</label><select id="editStatus" class="w-full bg-gray-700 border-gray-500 rounded-lg p-2.5 text-white focus:ring-purple-500 focus:border-purple-500 transition"><option value="assistindo">Assistindo</option><option value="completo">Completo</option><option value="pausado">Pausado</option><option value="abandonado">Abandonado</option></select></div>
                     </div>
                 </div>
-                <button type="submit" class="mt-4 w-full md:w-auto flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-300">
+                <button type="submit" id="saveEditBtn" class="mt-4 w-full md:w-auto flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-300">
                     <i data-lucide="save"></i> Salvar Alterações
                 </button>
             </form>
@@ -273,10 +299,13 @@
                 cardsGrid: document.getElementById('cardsGrid'),
                 editModal: document.getElementById('editModal'),
                 editForm: document.getElementById('editForm'),
+                saveEditBtn: document.getElementById('saveEditBtn'),
                 editTypeSelect: document.getElementById('editType'),
                 editSeriesOptions: document.getElementById('editSeriesOptions'),
                 editWatchedEpisodesInput: document.getElementById('editWatchedEpisodes'),
                 editEpisodesInput: document.getElementById('editEpisodes'),
+                editWouldWatchAgainSelect: document.getElementById('editWouldWatchAgain'),
+                editSagaCompleteCheckbox: document.getElementById('editSagaComplete'),
                 confirmModal: document.getElementById('confirmModal'),
                 cancelDeleteBtn: document.getElementById('cancelDeleteBtn'),
                 confirmDeleteBtn: document.getElementById('confirmDeleteBtn'),
@@ -377,6 +406,8 @@
                                 ${item.dateAdded ? infoItem('plus-square', 'Adicionado', item.dateAdded) : ''}
                                 ${item.type === 'serie' && item.status ? infoItem(statusInfo[item.status].icon, 'Status', `<span class="${statusInfo[item.status].color}">${capitalizeFirst(item.status)}</span>`) : ''}
                                 ${item.type === 'serie' && item.episodes ? infoItem('hash', 'Episódios', `${item.watchedEpisodes || 0}/${item.episodes}`) : ''}
+                                ${item.wouldWatchAgain ? infoItem('repeat', 'Assistiria Novamente', formatWouldWatchAgain(item.wouldWatchAgain)) : ''}
+                                ${item.sagaComplete !== undefined ? infoItem(item.sagaComplete ? 'check-circle' : 'x-circle', 'Saga Completa', item.sagaComplete ? 'Sim' : 'Não') : ''}
                             </div>
                         </div>
                         
@@ -396,7 +427,7 @@
                 <div class="flex items-center gap-2 text-gray-300">
                     <i data-lucide="${icon}" class="w-4 h-4 text-purple-400 flex-shrink-0"></i>
                     <div>
-                        <p class="font-semibold text-white">${value}</p>
+                        <span class="text-gray-400">${label}:</span> <span class="font-semibold text-white">${value}</span>
                     </div>
                 </div>`;
             
@@ -410,6 +441,15 @@
             };
 
             const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+            const formatWouldWatchAgain = (value) => {
+                switch (value) {
+                    case 'true': return 'Sim';
+                    case 'false': return 'Não Mais';
+                    case 'maybe': return 'Talvez';
+                    default: return '';
+                }
+            };
             
             const toggleSeriesOptions = (selectElement, optionsContainer) => {
                 optionsContainer.style.display = selectElement.value === 'serie' ? 'block' : 'none';
@@ -438,6 +478,17 @@
                 }, 2500);
             };
 
+            const validateSeriesFields = (formElements) => {
+                if (formElements.type.value === 'serie') {
+                    if (!formElements.seasons.value || !formElements.episodes.value || !formElements.watchedEpisodes.value || !formElements.status.value) {
+                        // alert('Por favor, preencha todos os campos de série (Temporadas, Episódios Totais, Episódios Assistidos, Status).'); // Removido o alert para usar showFeedback
+                        console.warn('Campos de série incompletos.');
+                        return false;
+                    }
+                }
+                return true;
+            };
+
             // --- FUNÇÕES DE MODAL ---
             const openEditModal = (item) => {
                 editingId = item.id;
@@ -445,6 +496,8 @@
                 dom.editForm.elements.editType.value = item.type;
                 dom.editForm.elements.editYear.value = item.year || '';
                 dom.editForm.elements.editRating.value = item.rating || '';
+                dom.editForm.elements.editWouldWatchAgain.value = item.wouldWatchAgain !== undefined ? item.wouldWatchAgain : '';
+                dom.editForm.elements.editSagaComplete.checked = item.sagaComplete !== undefined ? item.sagaComplete : false;
                 
                 toggleSeriesOptions(dom.editTypeSelect, dom.editSeriesOptions);
 
@@ -453,6 +506,12 @@
                     dom.editForm.elements.editEpisodes.value = item.episodes || '';
                     dom.editForm.elements.editWatchedEpisodes.value = item.watchedEpisodes || '';
                     dom.editForm.elements.editStatus.value = item.status || 'assistindo';
+                } else {
+                    // Limpar campos de série se o tipo não for série
+                    dom.editForm.elements.editSeasons.value = '';
+                    dom.editForm.elements.editEpisodes.value = '';
+                    dom.editForm.elements.editWatchedEpisodes.value = '';
+                    dom.editForm.elements.editStatus.value = 'assistindo'; // ou ''
                 }
                 dom.editModal.classList.remove('hidden');
             };
@@ -477,13 +536,20 @@
             dom.addForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const form = e.target.elements;
+
+                if (!validateSeriesFields(form)) {
+                    return;
+                }
+
                 const item = {
                     id: Date.now(),
                     name: form.name.value,
                     type: form.type.value,
                     year: form.year.value,
                     rating: form.rating.value,
-                    dateAdded: new Date().toLocaleDateString('pt-BR')
+                    dateAdded: new Date().toLocaleDateString('pt-BR'),
+                    wouldWatchAgain: form.wouldWatchAgain.value,
+                    sagaComplete: form.sagaComplete.checked
                 };
 
                 if (item.type === 'serie') {
@@ -508,24 +574,38 @@
                 if (itemIndex === -1) return;
 
                 const form = e.target.elements;
+
+                if (!validateSeriesFields(form)) {
+                    showFeedback(dom.saveEditBtn, 'Preencha os campos de série!', false);
+                    console.error('Validação de campos de série falhou no formulário de edição.');
+                    return;
+                }
+                
                 const item = watchList[itemIndex];
                 
                 item.name = form.editName.value;
                 item.type = form.editType.value;
-                item.year = form.editYear.value;
-                item.rating = form.editRating.value;
+                item.year = parseInt(form.editYear.value) || null; // Converte para número inteiro
+                item.rating = parseFloat(form.editRating.value.replace(',', '.')) || null; // Converte para float, tratando vírgula
+                item.wouldWatchAgain = form.editWouldWatchAgain.value;
+                item.sagaComplete = form.editSagaComplete.checked;
 
                 if (item.type === 'serie') {
-                    item.seasons = form.editSeasons.value;
-                    item.episodes = form.editEpisodes.value;
-                    item.watchedEpisodes = form.editWatchedEpisodes.value;
+                    item.seasons = parseInt(form.editSeasons.value) || null;
+                    item.episodes = parseInt(form.editEpisodes.value) || null;
+                    item.watchedEpisodes = parseInt(form.editWatchedEpisodes.value) || null;
                     item.status = form.editStatus.value;
                 }
 
                 saveToStorage();
-                closeEditModal();
                 renderCards();
                 updateStats();
+                dom.saveEditBtn.disabled = true;
+                showFeedback(dom.saveEditBtn, 'Salvo!', true);
+                setTimeout(() => {
+                    dom.saveEditBtn.disabled = false;
+                    closeEditModal();
+                }, 1200);
             });
 
             dom.typeSelect.addEventListener('change', () => toggleSeriesOptions(dom.typeSelect, dom.seriesOptions));
@@ -587,4 +667,3 @@
     </script>
 </body>
 </html>
-
